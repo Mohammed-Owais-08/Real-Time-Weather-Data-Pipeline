@@ -10,6 +10,9 @@ def fetch_weather(city):
         print(f'failed to fetch data :{response.status_code}')
         return None
 
+
+#This below code was there before creating the frontend and using flask
+
 from transform import transform_weather_data
 
 #step 3 load data

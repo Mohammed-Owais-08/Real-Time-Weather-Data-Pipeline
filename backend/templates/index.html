@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🌤️ Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #e0f7fa;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    input, button {
+      padding: 0.5rem;
+      margin-top: 1rem;
+      width: 80%;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b2ebf2;
+    }
+
+    #result {
+      margin-top: 2rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 5px;
+      display: none; /* ✅ Hidden by default */
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #result p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌤️ Weather Dashboard</h1>
+    <form id="weather-form">
+      <input type="text" id="city" placeholder="Enter city name" required>
+      <button type="submit">Get Weather</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+
+
+
+
+
+
+  <script>
+  document.getElementById("weather-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const city = document.getElementById("city").value;
+    const result = document.getElementById("result");
+
+    result.style.display = "none"; // hide previous results before new request
+
+    const response = await fetch("/weather", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `city=${encodeURIComponent(city)}`
+    });
+
+    const data = await response.json();
+
+    if (data.error) {
+      result.style.display = "block";
+      result.innerHTML = `<p style="color:red">${data.error}</p>`;
+    } else {
+      // Build the list of recent entries
+      let recentHTML = "<h3>🗂️ Recently Saved Cities</h3><ul style='list-style:none;padding:0'>";
+      data.recent.forEach(entry => {
+        recentHTML += `<li>📍 ${entry.city} – ${entry.temperature}°C at ${entry.timestamp}</li>`;
+      });
+      recentHTML += "</ul>";
+
+      // Show current weather + message + recent data
+      result.style.display = "block";
+      result.innerHTML = `
+        <h2>${data.city}</h2>
+        <p>Temperature: ${data.temperature}°C</p>
+        <p>Humidity: ${data.humidity}%</p>
+        <p>Wind Speed: ${data.wind_speed} km/h</p>
+        <p>Weather: ${data.weather}</p>
+        <p>Time: ${data.timestamp}</p>
+        <hr>
+        <p style="color:green;">${data.message}</p>
+        <hr>
+        ${recentHTML}
+      `;
+    }
+  });
+</script>
+
+</body>
+</html>
