@@ -1,0 +1,5 @@
+<script>
+navigator.geolocation.getCurrentPosition(function(position) {
+  fetch(`/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+});
+</script>
