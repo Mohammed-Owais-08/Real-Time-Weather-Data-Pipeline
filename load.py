@@ -19,6 +19,7 @@ class Weather(Base):
     wind_speed = Column(Float)
     weather = Column(String)
     timestamp = Column(DateTime)
+    date=Column(DateTime)
 
 # Ensure tables are created once
 Base.metadata.create_all(engine)
@@ -26,14 +27,15 @@ Base.metadata.create_all(engine)
 def save_to_db(data):
     Session = sessionmaker(bind=engine)
     session = Session()
-
+    dat=datetime.now()
     record = Weather(
         city=data["city"],
         temperature=data["temperature"],
         humidity=data["humidity"],
         wind_speed=data["wind_speed"],
         weather=data["weather"],
-        timestamp=datetime.strptime(data["timestamp"], '%Y-%m-%d %H:%M:%S')
+        timestamp=datetime.strptime(data["timestamp"], '%Y-%m-%d %H:%M:%S'),
+        date=dat
     )
 
     session.add(record)

@@ -26,7 +26,7 @@ def weather():
 
         # Fetch last 5 saved entries
         session = Session()
-        recent = session.query(Weather).order_by(Weather.timestamp.desc()).limit(5).all()
+        recent = session.query(Weather).order_by(Weather.date.desc()).limit(5).all()
         session.close()
         
 
@@ -34,7 +34,8 @@ def weather():
             {
                 "city": r.city,
                 "temperature": r.temperature,
-                "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+                "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                "date":r.date.strftime("%H:%M:%S")
             }
             for r in recent
         ]
