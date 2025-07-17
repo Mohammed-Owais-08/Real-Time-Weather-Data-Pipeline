@@ -34,8 +34,10 @@ def weather():
             {
                 "city": r.city,
                 "temperature": r.temperature,
-                "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-                "date":r.date.strftime("%H:%M:%S")
+                "timestamp": r.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+                # "date":r.date.strftime("%H:%M:%S") to get the exact time 
+                #once you fetch data for a city/place it gets updated after 10 minutes as openweathermap api takes time to update the live data
+                # hence the 1st time you fetch the data, the data gets cached which will be returned when you are fetching data for the same city/place
             }
             for r in recent
         ]

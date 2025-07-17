@@ -90,7 +90,7 @@
       // Build the list of recent entries
       let recentHTML = "<h3>🗂️ Recently Saved Cities</h3><ul style='list-style:none;padding:0'>";
       data.recent.forEach(entry => {
-        recentHTML += `<li>📍 ${entry.city} – ${entry.temperature}°C at FetchTime${entry.timestamp} SystemTime${entry.date}</li>`;
+        recentHTML += `<li>📍 ${entry.city} – ${entry.temperature}°C at ${entry.timestamp} </li>`;
       });
       recentHTML += "</ul>";
 
