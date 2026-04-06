@@ -88,5 +88,4 @@ Feel free to fork the repo and contribute!
 ## 📧 Contact
 **Mohammed Owais Siddibapa**  
 - Email: mdowais0803@gmail.com  
-- LinkedIn: (add your link)  
-- GitHub: (add your link)
+
